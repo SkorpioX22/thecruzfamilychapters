@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Cruz Life Chapters</title>
+
+  <style>
+    :root {
+      --bg: #0e0e11;
+      --text: #f5f5f7;
+      --muted: #a1a1aa;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* Top title */
+    .site-title {
+      position: fixed;
+      top: 1.2rem;
+      width: 100%;
+      text-align: center;
+      font-size: 1.2rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.65);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Big animated year */
+    .year-display {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: clamp(5rem, 18vw, 16rem);
+      font-weight: 800;
+      color: rgba(255, 255, 255, 0.04);
+      pointer-events: none;
+      z-index: 1;
+      transition: 0.3s ease;
+    }
+
+    section {
+      min-height: 100vh;
+      padding: 7rem 1.5rem 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .content {
+      max-width: 900px;
+      text-align: center;
+      animation: fadeUp 1s ease forwards;
+    }
+
+    .content img {
+      width: 100%;
+      max-height: 70vh;
+      object-fit: cover;
+      border-radius: 18px;
+      margin-bottom: 2rem;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+    }
+
+    .content p {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      color: var(--muted);
+    }
+
+    .placeholder {
+      font-size: 1.3rem;
+      color: var(--muted);
+      opacity: 0.6;
+      text-align: center;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    footer {
+      height: 50vh;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Title -->
+  <header class="site-title">
+    The Cruz Life Chapters
+  </header>
+
+  <!-- Animated Year -->
+  <div class="year-display" id="yearDisplay">2025</div>
+
+  <!-- 2025 -->
+  <section data-year="2025">
+    <div class="content">
+      <img src="https://i.ibb.co/Q3ns8BQv/DJI-20251224201952-0143-D.jpg" alt="2025 memory" />
+      <p>
+        2025 was definitely a year of change. But it was this year I discovered that when God shuts a door,
+        He also opens a new one. I realized that our prayers aren't always answered directly, but through
+        ways which were once beyond the scope of our imagination.
+        <br><br>
+        I'm truly thankful for all the times we spent together as family. To Avery, always keep exploring
+        the world as you grow. To Mommy and Daddy, thank you so much for all the guidance you have put in
+        getting our wonderful family on track with God's plan for us.
+        <br><br>
+        I will always be praying for all of us.
+        <br><br>
+        Merry Christmas and Happy New Year! Cheers to 2026!
+      </p>
+    </div>
+  </section>
+
+  <!-- 2026–2050 placeholders -->
+  <script>
+    for (let year = 2026; year <= 2050; year++) {
+      const section = document.createElement("section");
+      section.dataset.year = year;
+      section.innerHTML = `
+        <div class="content">
+          <div class="placeholder">
+            ${year}<br><br>
+            This chapter hasn’t been written yet.
+          </div>
+        </div>
+      `;
+      document.body.appendChild(section);
+    }
+  </script>
+
+  <footer></footer>
+
+  <!-- Scroll logic -->
+  <script>
+    const yearDisplay = document.getElementById("yearDisplay");
+    const sections = document.querySelectorAll("section");
+
+    window.addEventListener("scroll", () => {
+      let currentYear = 2025;
+
+      sections.forEach(section => {
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight * 0.55) {
+          currentYear = section.dataset.year;
+        }
+      });
+
+      yearDisplay.textContent = currentYear;
+    });
+  </script>
+
+</body>
+</html>
